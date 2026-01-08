@@ -15,11 +15,11 @@ build:
     - if: unix
       then:
         - set -ex
-        - pnpm install --ignore-scripts --arch=${{ 'arm64' if (target_platform == 'osx-arm64') or (target_platform == 'linux-aarch64') else 'x64' }}
+        - pnpm install --ignore-scripts --cpu=${{ 'arm64' if (target_platform == 'osx-arm64') or (target_platform == 'linux-aarch64') else 'x64' }}
         - pnpm build
         - npm pkg delete scripts.prepare
         - npm pack --ignore-scripts
-        - npm install --global ${SRC_DIR}/${PKG_NAME}-${PKG_VERSION}.tgz
+        - npm install --global ${SRC_DIR}/${PKG_NAME}-${PKG_VERSION}.tgz --cpu=${{ 'arm64' if (target_platform == 'osx-arm64') or (target_platform == 'linux-aarch64') else 'x64' }}
         - pnpm-licenses generate-disclaimer --prod --output-file=third-party-licenses.txt
       else:
         - call pnpm install --ignore-scripts
