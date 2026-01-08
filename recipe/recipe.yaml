@@ -19,7 +19,7 @@ build:
         - pnpm build
         - npm pkg delete scripts.prepare
         - npm pack --ignore-scripts
-        - npm install --global ${SRC_DIR}/${PKG_NAME}-${PKG_VERSION}.tgz
+        - npm install --global ${SRC_DIR}/${PKG_NAME}-${PKG_VERSION}.tgz --cpu=${{ 'arm64' if (arm64 or aarch64) else 'x64' }}
         - pnpm-licenses generate-disclaimer --prod --output-file=third-party-licenses.txt
       else:
         - call pnpm install --ignore-scripts
@@ -34,7 +34,7 @@ build:
         - if %ERRORLEVEL% neq 0 exit 1
         - call pnpm-licenses generate-disclaimer --prod --output-file=third-party-licenses.txt
         - if %ERRORLEVEL% neq 0 exit 1
-  number: 1
+  number: 2
 
 requirements:
   build:
