@@ -15,7 +15,7 @@ build:
     - if: unix
       then:
         - set -ex
-        - pnpm install --ignore-scripts
+        - pnpm install --ignore-scripts --arch=${{ 'arm64' if (target_platform == 'osx-arm64') or (target_platform == 'linux-aarch64') else 'x64' }}
         - pnpm build
         - npm pkg delete scripts.prepare
         - npm pack --ignore-scripts
