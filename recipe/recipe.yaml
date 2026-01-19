@@ -1,6 +1,6 @@
 context:
   name: difit
-  version: "2.2.7"
+  version: "3.0.3"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/yoshiko-pg/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 552b6138e821a5240fa979149e8503313968dc029abc6b44f12a191c03c8ed17
+  sha256: f0790a1ba8d0c3e3c65127c65b701408990177ed8d13516552c08243b9b0ef35
 
 build:
   script:
@@ -34,7 +34,7 @@ build:
         - if %ERRORLEVEL% neq 0 exit 1
         - call pnpm-licenses generate-disclaimer --prod --output-file=third-party-licenses.txt
         - if %ERRORLEVEL% neq 0 exit 1
-  number: 2
+  number: 0
 
 requirements:
   build:
