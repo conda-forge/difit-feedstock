@@ -1,6 +1,6 @@
 context:
   name: difit
-  version: "5.0.6"
+  version: "5.0.7"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/yoshiko-pg/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 6de3210648554a72d8f5a1f635d47832efa6ae590c4f018843fd9a1978fe1e36
+  sha256: bd43b686176af44612c3413be8c201d9a0c282ce940e499c96b557fab4f5e337
 
 build:
   script:
