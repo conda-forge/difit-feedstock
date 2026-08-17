@@ -15,16 +15,16 @@ build:
     - if: unix
       then:
         - set -ex
-        - pnpm install --ignore-scripts
-        - pnpm build
+        - pnpm --pm-on-fail=ignore install --ignore-scripts
+        - pnpm --pm-on-fail=ignore build
         - npm pkg delete scripts.prepare
         - npm pack --ignore-scripts
         - npm install --global ${SRC_DIR}/${PKG_NAME}-${PKG_VERSION}.tgz --cpu=${{ 'arm64' if (arm64 or aarch64) else 'x64' }}
         - pnpm-licenses generate-disclaimer --prod --output-file=third-party-licenses.txt
       else:
-        - call pnpm install --ignore-scripts
+        - call pnpm --pm-on-fail=ignore install --ignore-scripts
         - if %ERRORLEVEL% neq 0 exit 1
-        - call pnpm build
+        - call pnpm --pm-on-fail=ignore build
         - if %ERRORLEVEL% neq 0 exit 1
         - call npm pkg delete scripts.prepare
         - if %ERRORLEVEL% neq 0 exit 1
