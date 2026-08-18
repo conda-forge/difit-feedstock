@@ -1,6 +1,6 @@
 context:
   name: difit
-  version: "5.0.8"
+  version: "5.0.11"
 
 package:
   name: ${{ name|lower }}
@@ -8,13 +8,14 @@ package:
 
 source:
   url: https://github.com/yoshiko-pg/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 40916d7d229ae7ae6ca0d303f9998dbb7a863e3df0ecd2ac6c64d67d8f3198fc
+  sha256: 5580bcd6b46b92143cfe88a7771868aeea7061d8f3c2eb5b7bf7db5da507ce13
 
 build:
   script:
     - if: unix
       then:
         - set -ex
+        - export PNPM_CONFIG_PM_ON_FAIL=ignore
         - pnpm install --ignore-scripts
         - pnpm build
         - npm pkg delete scripts.prepare
@@ -22,6 +23,7 @@ build:
         - npm install --global ${SRC_DIR}/${PKG_NAME}-${PKG_VERSION}.tgz --cpu=${{ 'arm64' if (arm64 or aarch64) else 'x64' }}
         - pnpm-licenses generate-disclaimer --prod --output-file=third-party-licenses.txt
       else:
+        - set PNPM_CONFIG_PM_ON_FAIL=ignore
         - call pnpm install --ignore-scripts
         - if %ERRORLEVEL% neq 0 exit 1
         - call pnpm build
@@ -67,3 +69,4 @@ about:
 extra:
   recipe-maintainers:
     - pavelzw
+    - moritzwilksch
